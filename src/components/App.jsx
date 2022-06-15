@@ -7,7 +7,8 @@ import { useEffect } from 'react';
 export const App = () => {
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
-
+  // этот ефект запускается один раз при монтировании
+  // считывает контакты из localStorage
   useEffect(() => {
     const localContacts = localStorage.getItem('contacts');
     const parseContacts = JSON.parse(localContacts);
@@ -15,6 +16,8 @@ export const App = () => {
       setContacts(parseContacts);
     }
   }, []);
+  // этот ефект запускается каждый раз при обновлении contacts
+  // записывает контакты в localStorage
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
@@ -33,7 +36,6 @@ export const App = () => {
     if (!isNameInPhonebook(name)) {
       contact.id = nanoid(5);
       setContacts(prevContacts => [...prevContacts, contact]);
-      // this.setState(prevState => prevState.contacts.push(contact));
     } else {
       alert(`${name} is already in contacts`);
     }
