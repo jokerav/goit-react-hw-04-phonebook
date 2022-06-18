@@ -7,8 +7,10 @@ import { useEffect } from 'react';
 export const App = () => {
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
-  // этот ефект запускается один раз при монтировании
-  // считывает контакты из localStorage
+
+  // я так и не понял, что Вы имели ввиду
+  // то-есть начальное значение contacts или [] или контакты из локального хранилища
+  // и тогда один useEffect станет не нужен?
   useEffect(() => {
     const localContacts = localStorage.getItem('contacts');
     const parseContacts = JSON.parse(localContacts);
@@ -16,8 +18,7 @@ export const App = () => {
       setContacts(parseContacts);
     }
   }, []);
-  // этот ефект запускается каждый раз при обновлении contacts
-  // записывает контакты в localStorage
+
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
